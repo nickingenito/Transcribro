@@ -22,11 +22,11 @@ export const standardTutorials = {
       text: "When you are done customizing the text, click 'Save Transcript' to download a pdf file to your computer with your chosen accessibility settings."
     },
     {
-      position: {pos: "fixed", left: {md: "280"}, top: {base: "130px", md: "160px"}},
+      position: {pos: "fixed", left: {md: "34%"}, top: {base: "130px", md: "10%"}},
       text: "If you would like to reset your changes to the default settings click on 'Reset Editor'."
     },
     {
-      position: {pos: "fixed", left: {md: "480"}, top: {base: "130px", md: "160px"}},
+      position: {pos: "fixed", left: {md: "50%"}, top: {base: "130px", md: "7%"}},
       text: "Click on 'Switch to Interactive View' to switch to an interactive experience with media controls that will highlight text as is it spoken in your uploaded audio file."
     }
   ]
