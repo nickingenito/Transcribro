@@ -36,18 +36,18 @@ const TutorialPopup = () => {
 
         
         return (
-            <Flex sx={currentTutorial.position} width="370px" borderRadius="8" mb="4" zIndex="1000" flexDirection="row">
+            <Flex sx={currentTutorial.position} width={{md: "370px"}} borderRadius="8" mb="4" zIndex="1000" flexDirection="row">
                 <Box 
-                    width="40px" 
+                    width={{md: "40px"}} 
                     backgroundImage={`linear-gradient(to bottom left, ${bgColor} 50%, transparent 0), linear-gradient(to top left, ${bgColor} 50%, transparent 0)`} 
                     bgSize="100% 50%" 
                     bgRepeat="no-repeat" 
                     bgPosition="bottom, top"
                 />
-                <Box p="2" textAlign="left" fontSize="md" width="320px" bg={bgColor}>
+                <Box p="2" textAlign="left" fontSize="md" width={{md: "320px"}} bg={bgColor}>
                     <Text>{currentTutorial.text}</Text>
                 </Box>
-                <Box width="10px" bg="#557E4A" borderRightRadius="8" />
+                <Box width={{md: "10px"}} bg="#557E4A" borderRightRadius="8" />
             </Flex>
         );
     };
