@@ -6,8 +6,12 @@ import {
 
 
 const defaultState: TranscriptionContextType = {
+  video: false,
+  setIsVideo: () => {},
   transcriptionData: null,
   setTranscriptionData: () => null,
+  transcriptionVTT: "",
+  setTranscriptionVTT: () => null,
   fontSize: "16px",
   setFontSize: () => {},
   fontColor: "#000000",
@@ -37,7 +41,9 @@ export const TranscriptionContext =
 export const TranscriptionProvider = ({ children }: any) => {
   const [transcriptionData, setTranscriptionData] = useState<
     TranscriptionSegment[] | null
-  >(null);
+    >(null);
+  const [video, setIsVideo] = useState<boolean>(false);
+  const [transcriptionVTT, setTranscriptionVTT] = useState<string>("")
   const [fontSize, setFontSize] = useState<string>("16px");
   const [fontColor, setFontColor] = useState<string>("#000000");
   const [allHighlightColors, setAllHighlightColors] = useState<string[]>([]);
@@ -55,13 +61,16 @@ export const TranscriptionProvider = ({ children }: any) => {
     setFontColor(defaultState.fontColor);
     setLineHeight(defaultState.lineHeight);
     setWordSpacing(defaultState.wordSpacing);
-    // Add any additional style resets here
   };
   return (
     <TranscriptionContext.Provider
       value={{
+        video,
+        setIsVideo,
         transcriptionData,
         setTranscriptionData,
+        transcriptionVTT,
+        setTranscriptionVTT,
         fontSize,
         setFontSize,
         fontStyle,

@@ -7,14 +7,15 @@ import { MOCK_BACKEND } from "./environment";
 async function realGenerateTranscript(
   audioFile: File,
   languageCode: string,
+  video: boolean,
   setProgress: Dispatch<SetStateAction<number>>
 ): Promise<TranscriptionData> {
   const formData = new FormData();
   const axios = AxiosPrivateClient;
   formData.append("audio_file", audioFile);
-
+  const route = video ?"": `/transcribe/?language=${languageCode}`
   const { data } = await axios.post(
-    `/transcribe/?language=${languageCode}`,
+    route,
     formData,
     {
       onUploadProgress: (progressEvent) => {
@@ -30,9 +31,12 @@ async function realGenerateTranscript(
   return data;
 }
 
+
+
 async function fakeGenerateTranscript(
   _audioFile: File,
   _languageCode: string,
+  video: boolean,
   setProgress: Dispatch<SetStateAction<number>>
 ): Promise<TranscriptionData> {
   const onProgress = (evt: ProgressEvent<EventTarget>) => {

@@ -6,12 +6,16 @@ interface TranscriptionSegment {
 
 interface TranscriptionData {
   transcript: TranscriptionSegment[]
-  // NOTE: extend with metadata if needed
+  vtt?: string;
 }
 
 interface TranscriptionContextType {
+  video: boolean;
+  setIsVideo: (isVideo: boolean) => void;
   transcriptionData: TranscriptionSegment[] | null; // Define the type for your transcription data appropriately
   setTranscriptionData: (data: TranscriptionSegment[] | null) => void;
+  transcriptionVTT: string; 
+  setTranscriptionVTT: (vtt: string) => void;
   fontSize: string;
   setFontSize: (fontSize: string) => void;
   fontStyle: string;
