@@ -1,18 +1,19 @@
 import { createContext, useContext, useState } from "react";
 import {
   TranscriptionContextType,
+  TranscriptionData,
   TranscriptionSegment,
 } from "src/types/transcriptionDataTypes";
 
 
 const defaultState: TranscriptionContextType = {
-  isVideo: false,
+  isVideo: true,
   setIsVideo: () => { },
   videoFile: null,
   setVideoFile: () => {},
   transcriptionData: null,
   setTranscriptionData: () => null,
-  transcriptionVTT: "",
+  transcriptionVTT: null,
   setTranscriptionVTT: () => null,
   fontSize: "16px",
   setFontSize: () => {},
@@ -44,9 +45,9 @@ export const TranscriptionProvider = ({ children }: any) => {
   const [transcriptionData, setTranscriptionData] = useState<
     TranscriptionSegment[] | null
     >(null);
-  const [isVideo, setIsVideo] = useState<boolean>(false);
+  const [isVideo, setIsVideo] = useState<boolean>(true);
   const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [transcriptionVTT, setTranscriptionVTT] = useState<string>("")
+  const [transcriptionVTT, setTranscriptionVTT] = useState<TranscriptionData | null>(null)
   const [fontSize, setFontSize] = useState<string>("16px");
   const [fontColor, setFontColor] = useState<string>("#000000");
   const [allHighlightColors, setAllHighlightColors] = useState<string[]>([]);

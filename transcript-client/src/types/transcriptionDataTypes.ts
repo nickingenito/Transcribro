@@ -16,8 +16,8 @@ interface TranscriptionContextType {
   setVideoFile: (videoFile: File | null) => void;
   transcriptionData: TranscriptionSegment[] | null; // Define the type for your transcription data appropriately
   setTranscriptionData: (data: TranscriptionSegment[] | null) => void;
-  transcriptionVTT: string; 
-  setTranscriptionVTT: (vtt: string) => void;
+  transcriptionVTT: TranscriptionData | null; 
+  setTranscriptionVTT: (vtt: TranscriptionData) => void;
   fontSize: string;
   setFontSize: (fontSize: string) => void;
   fontStyle: string;

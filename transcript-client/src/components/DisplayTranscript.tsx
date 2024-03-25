@@ -12,7 +12,7 @@ import VideoInteractiveView from './views/VideoInteractive';
 
 const DisplayTranscript = () => {
   const {
-    video,
+    isVideo,
     transcriptionData,
     toggleInteractiveMode,
     isInteractiveMode,
@@ -31,8 +31,8 @@ const DisplayTranscript = () => {
   const [currentStyleMap, setCurrentStyleMap] = useState({});
 
   const bg = useColorModeValue('white', 'primary.gray.100')
-  
-  if( video ){
+  console.log(isVideo)
+  if( isVideo ){
     return (
       <Box height="100%" p={4}>
         <Flex flexDirection={{ base: "column", md: "row" }} gap={{ base: "2", md: "4" }}>

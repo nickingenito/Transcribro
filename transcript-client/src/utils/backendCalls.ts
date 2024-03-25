@@ -13,7 +13,7 @@ async function realGenerateTranscript(
   const formData = new FormData();
   const axios = AxiosPrivateClient;
   formData.append("audio_file", audioFile);
-  const route = video ?"": `/transcribe/?language=${languageCode}`
+  const route = video ?`/transcribe/?language=${languageCode}&format=vtt`: `/transcribe/?language=${languageCode}`
   const { data } = await axios.post(
     route,
     formData,
@@ -36,7 +36,7 @@ async function realGenerateTranscript(
 async function fakeGenerateTranscript(
   _audioFile: File,
   _languageCode: string,
-  video: boolean,
+  isVideo: boolean,
   setProgress: Dispatch<SetStateAction<number>>
 ): Promise<TranscriptionData> {
   const onProgress = (evt: ProgressEvent<EventTarget>) => {

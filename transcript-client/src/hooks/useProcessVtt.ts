@@ -1,10 +1,11 @@
 import { useState, useCallback } from 'react';
+import { TranscriptionData } from 'src/types/transcriptionDataTypes';
 
 function useProcessVTT({fontSize, fontStyle, fontColor}:{fontSize: string, fontStyle: string, fontColor: string}) {
 
   const [processedVTT, setProcessedVTT] = useState('');
 
-  const processVTTString = useCallback((vttString: string) => {
+  const processVTTString = useCallback((vttString: TranscriptionData) => {
     // Example of processing: Adding custom notes/comments with styles that your backend can interpret
     let newVttString = `NOTE FontSize:${fontSize}\nNOTE FontStyle:${fontStyle}\nNOTE FontColor:${fontColor}\n`;
     newVttString += vttString;

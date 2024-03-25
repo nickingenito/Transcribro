@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranscription } from "src/context/TranscriptionContext";
 import useProcessVTT from "src/hooks/useProcessVtt";
 
@@ -15,31 +15,32 @@ const VideoInteractiveView = () => {
     fontStyle,
     fontColor,
   });
-
+  const videoRef = useRef(null)
+  const [vttUrl, setVttUrl] = useState<Blob| null>(null)
   useEffect(() => {
-    processVTTString(transcriptionVTT);
+    processVTTString(transcriptionVTT!);
   }, [transcriptionVTT, processVTTString]);
 
-  //   useEffect(() => {
-  //     if (processedVTT) {
-  //       // Convert processed VTT string to a Blob URL for the <track> src
-  //       const blob = new Blob([processedVTT], { type: 'text/vtt' });
-  //       const url = URL.createObjectURL(blob);
-  //       setVttUrl(url);
+    useEffect(() => {
+      if (processedVTT) {
+        // Convert processed VTT string to a Blob URL for the <track> src
+        const blob = new Blob([processedVTT], { type: 'text/vtt' });
+        
+        setVttUrl(blob);
 
-  //       // Cleanup
-  //       return () => {
-  //         URL.revokeObjectURL(url);
-  //       };
-  //     }
-  //   }, [processedVTT]);
-
+        // Cleanup
+        // return () => {
+        //   URL.revokeObjectURL(url);
+        // };
+      }
+    }, [processedVTT]);
+    console.log(vttUrl)
   return (
     <div>
-      <input type="file" accept="video/*" onChange={handleVideoUpload} />
       {videoFile && (
         <video controls ref={videoRef} style={{ width: "100%" }}>
-          <source src={videoFile} type="video/mp4" />
+          <source src={URL.createObjectURL(videoFile)} type="video/mp4" />
+          <track default kind="subtitles" src={vttUrl} label="English" />
         </video>
       )}
     </div>
