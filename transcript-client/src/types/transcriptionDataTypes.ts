@@ -10,8 +10,10 @@ interface TranscriptionData {
 }
 
 interface TranscriptionContextType {
-  video: boolean;
+  isVideo: boolean;
   setIsVideo: (isVideo: boolean) => void;
+  videoFile: File | null;
+  setVideoFile: (videoFile: File | null) => void;
   transcriptionData: TranscriptionSegment[] | null; // Define the type for your transcription data appropriately
   setTranscriptionData: (data: TranscriptionSegment[] | null) => void;
   transcriptionVTT: string; 
