@@ -8,7 +8,7 @@ async function realGenerateTranscript(
   audioFile: File,
   languageCode: string,
   setProgress: Dispatch<SetStateAction<number>>,
-  isVideoFile: boolean // Adding isVideoFile parameter
+  isVideo: boolean 
 
 ): Promise<TranscriptionData> {
   const formData = new FormData();
@@ -16,7 +16,7 @@ async function realGenerateTranscript(
   formData.append("audio_file", audioFile);
 
   const { data } = await axios.post(
-    `/transcribe/?language=${languageCode} &isVideoFile=${isVideoFile}`,
+    `/transcribe/?language=${languageCode} &isVideo=${isVideo}`,
     formData,
     {
       onUploadProgress: (progressEvent) => {
