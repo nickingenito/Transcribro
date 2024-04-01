@@ -31,7 +31,6 @@ const DisplayTranscript = () => {
   const [currentStyleMap, setCurrentStyleMap] = useState({});
 
   const bg = useColorModeValue('white', 'primary.gray.100')
-  console.log(isVideo)
   if( isVideo ){
     return (
       <Box height="100%" p={4}>

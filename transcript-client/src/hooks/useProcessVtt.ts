@@ -7,9 +7,8 @@ function useProcessVTT({fontSize, fontStyle, fontColor}:{fontSize: string, fontS
 
   const processVTTString = useCallback((vttString: TranscriptionData) => {
     // Example of processing: Adding custom notes/comments with styles that your backend can interpret
-    let newVttString = `NOTE FontSize:${fontSize}\nNOTE FontStyle:${fontStyle}\nNOTE FontColor:${fontColor}\n`;
+    let newVttString = ``;
     newVttString += vttString;
-
     setProcessedVTT(newVttString);
     // Further processing can be done here as needed
   }, [fontSize, fontStyle, fontColor]);

@@ -86,7 +86,6 @@ function Upload() {
         toast.success("File successfully uploaded");
         setTimeout(() => {
           if (isVideo) {
-            console.log(data, uploaded)
             setTranscriptionVTT(data);
             setVideoFile(uploaded)
             navigate("/transcription", { state: { uploadedFile: uploaded } });

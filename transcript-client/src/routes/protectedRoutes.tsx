@@ -7,7 +7,6 @@ const ProtectedRoute = ({ children }: {
   children: ReactNode
 }) => {
   const { transcriptionData, transcriptionVTT } = useTranscription();
-  console.log((!transcriptionData || transcriptionVTT) && (transcriptionData || !transcriptionVTT));
   if ((!transcriptionData || transcriptionVTT) && (transcriptionData || !transcriptionVTT)) {
     // Redirect to the upload page if there's no transcription data
     return <Navigate to="/upload" replace />;
