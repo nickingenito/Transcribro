@@ -36,6 +36,13 @@ const defaultState: TranscriptionContextType = {
   audioFile: null,
   setAudioFile: () => null,
   resetStyles: () => {},
+
+  videoHighlightColors: "#FF",
+  setVideoHighlightColors: () => {},
+  line: 15,
+  setLine: () => {},
+  position: 50,
+  setPosition: () => {},
 };
 
 export const TranscriptionContext =
@@ -58,6 +65,10 @@ export const TranscriptionProvider = ({ children }: any) => {
   const [isItalic, setIsItalic] = useState<boolean>(false);
   const [isUnderline, setIsUnderline] = useState<boolean>(false);
   const [audioFile, setAudioFile] = useState<File | null>(null);
+
+  const [videoHighlightColors, setVideoHighlightColors] = useState<string>("#FF");
+  const [line, setLine] = useState<number>(15);
+  const [position, setPosition] = useState<number>(50);
   
   const resetStyles = () => {
     setFontSize(defaultState.fontSize);
@@ -98,6 +109,13 @@ export const TranscriptionProvider = ({ children }: any) => {
         resetStyles,
         audioFile,
         setAudioFile,
+
+        videoHighlightColors,
+        setVideoHighlightColors,
+        line,
+        setLine,
+        position,
+        setPosition,
       }}
     >
       {children}

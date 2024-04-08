@@ -7,19 +7,21 @@ const VideoInteractiveView = () => {
     fontSize,
     fontStyle,
     fontColor,
-    allHighlightColors,
+    videoHighlightColors,
     transcriptionVTT,
     videoFile,
     isBold,
     isItalic,
     isUnderline,
+    line,
+    position,
   } = useTranscription();
   const { processVTTString, processedVTT } = useProcessVTT({
     fontSize,
     fontStyle,
     fontColor,
   });
-  const videoRef = useRef(null);
+  const videoRef = useRef<any>(null);
   const [vttUrl, setVttUrl] = useState<string | null>(null);
   useEffect(() => {
     processVTTString(transcriptionVTT!);
@@ -30,18 +32,21 @@ const VideoInteractiveView = () => {
     style.type = "text/css";
     style.innerHTML = `
     ::cue {
-      background-color: ${allHighlightColors[0]};
       color: ${fontColor};
       font-size: ${fontSize};
+      font-family: ${fontStyle}
     }
-    ::cue(bold) {
-      font-weight: ${isBold};
+    ::cue(.background){
+      background-color: ${videoHighlightColors};
     }
-    ::cue(underline) {
-      font-style: ${isUnderline};
+    ::cue(.bold) {
+      font-weight: ${isBold ? 'bold' : 'normal'};
     }
-    ::cue(italic) {
-      font-style: ${isItalic};
+    ::cue(.underline) {
+      text-decoration: ${isUnderline ? 'underline' : 'none'};
+    }
+    ::cue(.italic) {
+      font-style: ${isItalic ? 'italic' : 'normal'};
     }
   `;
     document.head.appendChild(style);
@@ -49,7 +54,7 @@ const VideoInteractiveView = () => {
     return () => {
       document.head.removeChild(style);
     };
-  }, [fontSize, fontStyle, fontColor]);
+  }, [fontSize, fontStyle, fontColor, videoHighlightColors, isBold, isItalic, isUnderline]);
 
   useEffect(() => {
     if (processedVTT) {
@@ -67,22 +72,36 @@ const VideoInteractiveView = () => {
   useEffect(() => {
     if (videoRef.current && vttUrl) {
       const trackElement = document.createElement("track");
-      trackElement.kind = "subtitles";
-      trackElement.label = "English";
+      trackElement.kind = "captions";
       trackElement.src = vttUrl;
       trackElement.default = true;
+      trackElement.style.width = "auto";
       //@ts-ignore
       videoRef.current.appendChild(trackElement);
 
       //@ts-ignore
       videoRef.current.textTracks[0].mode = "showing"; // This might help in forcing the captions to display
-
       return () => {
         //@ts-ignore
         videoRef.current.removeChild(trackElement);
       };
     }
   }, [vttUrl]);
+
+  useEffect(() => {
+    if (videoRef.current && videoRef.current.textTracks[0]){
+      let track = videoRef.current.textTracks[0];
+      track.oncuechange = () => {
+        if (track.activeCues[0]) {
+          let active_cue = track.activeCues[0];
+          active_cue.line = line;
+          active_cue.position = position;
+          active_cue.text = `<c.background.bold.underline.italic>${active_cue.text}</c>`;
+        }
+      }
+    }
+  }, [videoRef.current, vttUrl, line, position])
+
   return (
     <div>
       {videoFile && (
