@@ -65,7 +65,6 @@ export const TranscriptionProvider = ({ children }: any) => {
   const [isItalic, setIsItalic] = useState<boolean>(false);
   const [isUnderline, setIsUnderline] = useState<boolean>(false);
   const [audioFile, setAudioFile] = useState<File | null>(null);
-
   const [videoHighlightColors, setVideoHighlightColors] = useState<string>("#FF");
   const [line, setLine] = useState<number>(15);
   const [position, setPosition] = useState<number>(50);
@@ -109,7 +108,6 @@ export const TranscriptionProvider = ({ children }: any) => {
         resetStyles,
         audioFile,
         setAudioFile,
-
         videoHighlightColors,
         setVideoHighlightColors,
         line,

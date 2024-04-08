@@ -39,7 +39,6 @@ interface TranscriptionContextType {
   resetStyles: () => void;
   audioFile: File | null;
   setAudioFile: React.Dispatch<React.SetStateAction<File | null>>;
-
   videoHighlightColors: string;
   setVideoHighlightColors: (color: string) => void;
   line: number;
