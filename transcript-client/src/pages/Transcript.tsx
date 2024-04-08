@@ -19,8 +19,6 @@ const TranscriptionPage = () => {
   const transcriptionContext = useTranscription();
   const [collapsed, setCollapsed] = useState(true);
 
-  const isVideo = true;
-
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
@@ -69,7 +67,7 @@ const TranscriptionPage = () => {
                 />
               ))}
             </Grid>
-            {isVideo && (
+            {transcriptionContext.isVideo && (
               <>
                 <SliderInput
                   text="Vertical Position"
@@ -97,7 +95,7 @@ const TranscriptionPage = () => {
                 updateContextValue(transcriptionContext.setFontColor, value)
               }
             />
-            {isVideo ? (
+            {transcriptionContext.isVideo ? (
               <ColorPickerComponent
                 text="Highlight Caption"
                 onChange={(value) => {
