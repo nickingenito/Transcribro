@@ -71,9 +71,9 @@ const TranscriptionPage = () => {
               <>
                 <SliderInput
                   text="Vertical Position"
-                  min={0}
-                  max={16}
-                  defaultVal={16}
+                  min={-20}
+                  max={0}
+                  defaultVal={-10}
                   onChange={(value) =>
                     updateContextValue(transcriptionContext.setLine, value)
                   }
@@ -96,12 +96,20 @@ const TranscriptionPage = () => {
               }
             />
             {transcriptionContext.isVideo ? (
-              <ColorPickerComponent
-                text="Highlight Caption"
+              <>
+                <ColorPickerComponent
+                  text="Highlight Caption"
+                  onChange={(value) => {
+                    updateContextValue(transcriptionContext.setVideoHighlightColors, value)
+                  }}
+                />
+                <ColorPickerComponent
+                text="Text Stroke"
                 onChange={(value) => {
-                  updateContextValue(transcriptionContext.setVideoHighlightColors, value)
+                  updateContextValue(transcriptionContext.setTextStroke, value)
                 }}
               />
+              </>
             ) : (
               <ColorPickerComponent
                 text="Highlight Text"

@@ -15,6 +15,8 @@ const VideoInteractiveView = () => {
     isUnderline,
     line,
     position,
+    textShadow,
+    textStroke,
   } = useTranscription();
   const { processVTTString, processedVTT } = useProcessVTT({
     fontSize,
@@ -23,6 +25,8 @@ const VideoInteractiveView = () => {
   });
   const videoRef = useRef<any>(null);
   const [vttUrl, setVttUrl] = useState<string | null>(null);
+  const [activeCue, setActiveCue] = useState<any>(null);
+
   useEffect(() => {
     processVTTString(transcriptionVTT!);
   }, [transcriptionVTT, processVTTString]);
@@ -34,7 +38,7 @@ const VideoInteractiveView = () => {
     ::cue {
       color: ${fontColor};
       font-size: ${fontSize};
-      font-family: ${fontStyle}
+      font-family: ${fontStyle};
     }
     ::cue(.background){
       background-color: ${videoHighlightColors};
@@ -48,13 +52,27 @@ const VideoInteractiveView = () => {
     ::cue(.italic) {
       font-style: ${isItalic ? 'italic' : 'normal'};
     }
+    ::cue(.shadow) {
+      text-shadow: ${textShadow};
+    }
+    ::cue(.stroke) {
+      text-shadow: 
+        -1px -1px 0 ${textStroke},
+        0 -1px 0 ${textStroke},
+        1px -1px 0 ${textStroke},
+        1px 0 0 ${textStroke},
+        1px 1px 0 ${textStroke},
+        0 1px 0 ${textStroke},
+        -1px 1px 0 ${textStroke},
+        -1px 0 0 ${textStroke};
+    }
   `;
     document.head.appendChild(style);
 
     return () => {
       document.head.removeChild(style);
     };
-  }, [fontSize, fontStyle, fontColor, videoHighlightColors, isBold, isItalic, isUnderline]);
+  }, [fontSize, fontStyle, fontColor, videoHighlightColors, isBold, isItalic, isUnderline, textShadow, textStroke]);
 
   useEffect(() => {
     if (processedVTT) {
@@ -89,18 +107,33 @@ const VideoInteractiveView = () => {
   }, [vttUrl]);
 
   useEffect(() => {
-    if (videoRef.current && videoRef.current.textTracks[0]){
-      let track = videoRef.current.textTracks[0];
-      track.oncuechange = () => {
-        if (track.activeCues[0]) {
-          let active_cue = track.activeCues[0];
-          active_cue.line = line;
-          active_cue.position = position;
-          active_cue.text = `<c.background.bold.underline.italic>${active_cue.text}</c>`;
-        }
+    if (videoRef.current && videoRef.current.textTracks[0]) {
+      const track = videoRef.current.textTracks[0];
+      const newCue = () => {
+        setActiveCue(track.activeCues[0]);
+      };
+  
+      track.oncuechange = newCue;
+  
+      return () => {
+        track.oncuechange = null;
+      };
+    }
+  }, [videoRef.current, vttUrl]); 
+
+  useEffect(() => {
+    if (videoRef.current && videoRef.current.textTracks[0]) {
+      const track = videoRef.current.textTracks[0];
+      if (track.activeCues[0]) {
+        let active_cue = track.activeCues[0];
+        active_cue.line = line;
+        active_cue.size = 50;
+        active_cue.position = position;
+        active_cue.text = `<c.background.bold.underline.italic.shadow.stroke>${active_cue.text}</c>`;
+        console.log(active_cue);
       }
     }
-  }, [videoRef.current, vttUrl, line, position])
+  }, [line, position, activeCue]);
 
   return (
     <div>

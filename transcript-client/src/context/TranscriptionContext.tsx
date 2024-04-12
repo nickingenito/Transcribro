@@ -43,6 +43,10 @@ const defaultState: TranscriptionContextType = {
   setLine: () => {},
   position: 50,
   setPosition: () => {},
+  textShadow: "",
+  setTextShadow: () => {},
+  textStroke: "#FF",
+  setTextStroke: () => {},
 };
 
 export const TranscriptionContext =
@@ -68,6 +72,9 @@ export const TranscriptionProvider = ({ children }: any) => {
   const [videoHighlightColors, setVideoHighlightColors] = useState<string>("#FF");
   const [line, setLine] = useState<number>(15);
   const [position, setPosition] = useState<number>(50);
+  const [textShadow, setTextShadow] = useState<string>("");
+  const [textStroke, setTextStroke] = useState<string>("#FF");
+
   
   const resetStyles = () => {
     setFontSize(defaultState.fontSize);
@@ -114,6 +121,10 @@ export const TranscriptionProvider = ({ children }: any) => {
         setLine,
         position,
         setPosition,
+        textShadow,
+        setTextShadow,
+        textStroke,
+        setTextStroke,
       }}
     >
       {children}
