@@ -39,7 +39,7 @@ const defaultState: TranscriptionContextType = {
 
   videoHighlightColors: "#FF",
   setVideoHighlightColors: () => {},
-  line: 15,
+  line: -8,
   setLine: () => {},
   position: 50,
   setPosition: () => {},
@@ -71,7 +71,7 @@ export const TranscriptionProvider = ({ children }: any) => {
   const [isUnderline, setIsUnderline] = useState<boolean>(false);
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [videoHighlightColors, setVideoHighlightColors] = useState<string>("");
-  const [line, setLine] = useState<number>(15);
+  const [line, setLine] = useState<number>(-8);
   const [position, setPosition] = useState<number>(50);
   const [textShadow, setTextShadow] = useState<string>("");
   const [textStroke, setTextStroke] = useState<string>("#FF");

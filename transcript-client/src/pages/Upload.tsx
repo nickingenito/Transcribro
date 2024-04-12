@@ -78,71 +78,21 @@ function Upload() {
           return;
         }
 
-        // const data = await generateTranscript(
-        //   uploaded,
-        //   languageCode,
-        //   isVideo,
-        //   setProgress
-        // );
-
-        const data = `WEBVTT
-
-        00:00:00.000 --> 00:00:01.180
-        of having electricity,
-        
-        00:00:01.200 --> 00:00:03.540
-        and you get to the light bulbs and the appliances
-        
-        00:00:03.560 --> 00:00:05.260
-        that we all take for granted.
-        
-        00:00:05.280 --> 00:00:07.820
-        But the amazing thing, in a way,
-        
-        00:00:07.840 --> 00:00:10.940
-        is that there's a revolution happening in the villages and towns
-        
-        00:00:10.960 --> 00:00:13.180
-        all around us here in East Africa.
-        
-        00:00:13.200 --> 00:00:17.840
-        And the revolution is an echo of the cell phone revolution.
-        
-        00:00:18.760 --> 00:00:20.299
-        It's wireless.
-        
-        00:00:20.320 --> 00:00:22.100
-        And that revolution is about solar,
-        
-        00:00:22.120 --> 00:00:23.860
-        and it's about distributed solar.
-        
-        00:00:23.879 --> 00:00:25.219
-        Photons are wireless,
-        
-        00:00:25.240 --> 00:00:27.299
-        they fall on every rooftop,
-        
-        00:00:27.340 --> 00:00:29.440
-        and they generate enough power
-        
-        00:00:29.459 --> 00:00:32.139
-        to be sufficient for every household need.
-        
-        00:00:33.419 --> 00:00:34.860
-        So that's an incredible thing.
-        `
+        const data = await generateTranscript(
+          uploaded,
+          languageCode,
+          isVideo,
+          setProgress
+        );
        
      
         toast.success("File successfully uploaded");
         setTimeout(() => {
           if (isVideo) {
-            //@ts-ignore
             setTranscriptionVTT(data);
             setVideoFile(uploaded)
             navigate("/transcription", { state: { uploadedFile: uploaded } });
           } else {
-            //@ts-ignore
             setTranscriptionData(data.transcript);
           }
           navigate("/transcription", { state: { uploadedFile: uploaded } });

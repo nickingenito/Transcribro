@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranscription } from "src/context/TranscriptionContext";
 import useProcessVTT from "src/hooks/useProcessVtt";
+import { videoTutorials } from "src/utils/videoTutorials";
+import { useTutorialContext } from 'src/context/TutorialContext';
 
 const VideoInteractiveView = () => {
   const {
@@ -26,6 +28,11 @@ const VideoInteractiveView = () => {
   const videoRef = useRef<any>(null);
   const [vttUrl, setVttUrl] = useState<string | null>(null);
   const [activeCue, setActiveCue] = useState<any>(null);
+
+  const { updateTutorialList } = useTutorialContext();
+  useEffect(() => {
+    updateTutorialList(videoTutorials);
+  }, [updateTutorialList]);
 
   useEffect(() => {
     processVTTString(transcriptionVTT!);
@@ -127,10 +134,9 @@ const VideoInteractiveView = () => {
       if (track.activeCues[0]) {
         let active_cue = track.activeCues[0];
         active_cue.line = line;
-        active_cue.size = 50;
+        active_cue.size = 40;
         active_cue.position = position;
         active_cue.text = `<c.background.bold.underline.italic.shadow.stroke>${active_cue.text}</c>`;
-        console.log(active_cue);
       }
     }
   }, [line, position, activeCue]);
